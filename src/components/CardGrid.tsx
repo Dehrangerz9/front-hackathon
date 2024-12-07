@@ -23,7 +23,7 @@ const CardGrid: React.FC<CardGridProps> = ({ data }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
       {data.map((item, index) => (
-        <Card key={index} {...item} />
+        <Card key={index} {...item} descricao={item.descricao}/>
       ))}
     </div>
   );
