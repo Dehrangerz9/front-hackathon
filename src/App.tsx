@@ -8,7 +8,6 @@ function App() {
   const [data, setData] = useState<Array<any>>([]); // Estado para armazenar os dados
   const [searchQuery, setSearchQuery] = useState(''); // Estado para a busca
 
-  // Função para carregar os dados do mock.json
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,14 +50,13 @@ function App() {
       case 1:
         return <User />;
       default:
-        return <div>Conteúdo Padrão</div>;
+        return <div className='self-center justify-self-center'><></></div>;
     }
   };
 
   return (
     <>
       <Header setTab={setTab} setSearchQuery={setSearchQuery} />
-      <h1>Aba Selecionada: {tab}</h1>
       {renderTabContent()}
     </>
   );

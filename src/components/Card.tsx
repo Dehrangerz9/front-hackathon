@@ -35,6 +35,27 @@ const Card: React.FC<CardProps> = ({
   const [compatibilityMessage, setCompatibilityMessage] = useState<string | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [productDescription, setProductDescription] = useState<string>(descricao);
+  const [imageUrl, setImageUrl] = useState<string>('');
+
+  const fetchImage = async (codigoCofap: string) => {
+    const imgUrl = `/assets/images/${codigoCofap}.png`; // Caminho da imagem com base no código Cofap
+  
+    const img = new Image();
+    img.src = imgUrl;
+  
+    img.onload = () => {
+      setImageUrl(imgUrl); // Se a imagem for carregada, define a imagem com o código Cofap
+    };
+  
+    img.onerror = () => {
+      setImageUrl('/assets/images/default.jpeg'); // Usar imagem padrão em caso de erro
+    };
+  };
+  
+
+  useEffect(() => {
+    fetchImage(codigoCofap);
+  }, [codigoCofap]);
 
   useEffect(() => {
     const userData = localStorage.getItem("userData");
@@ -92,6 +113,12 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition-shadow">
+      <img
+        src={imageUrl}
+        alt={nome}
+        className="w-32 h-auto object-cover rounded-lg my-4"
+      />
+
       <h3 className="text-lg font-semibold text-gray-800">{nome}</h3>
       <p className="text-sm text-gray-600">
         <strong>Marca:</strong> {marca}
@@ -102,6 +129,7 @@ const Card: React.FC<CardProps> = ({
       <p className="text-sm text-gray-600">
         <strong>Ano:</strong> {ano}
       </p>
+      
       <button
         className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
         onClick={togglePopup}

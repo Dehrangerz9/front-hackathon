@@ -67,7 +67,7 @@ const User: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">User Form</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-gray-800">Cadastro rápido</h2>
 
       {/* Formulário de nome e senha */}
       <div className="mb-4">
@@ -179,14 +179,6 @@ const User: React.FC = () => {
         >
           Carregar
         </button>
-      </div>
-
-      {/* Display dos dados salvos */}
-      <div className="mt-6">
-        <h4 className="text-xl font-semibold">Dados Salvos:</h4>
-        <pre className="mt-2 p-4 bg-gray-100 rounded-lg text-sm text-gray-700">
-          {localStorage.getItem('userData')}
-        </pre>
       </div>
     </div>
   );
