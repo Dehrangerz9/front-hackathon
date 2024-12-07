@@ -34,7 +34,7 @@ function App() {
           acc.push({ key, value: fieldValue });
         }
         return acc;
-      }, []);
+      }, [] as { key: string; value: string }[]);
       
   
       // Retorna o objeto original junto com os matches encontrados
