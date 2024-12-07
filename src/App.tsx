@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/mock.json'); // Corrigido caminho do arquivo JSON
+        const response = await fetch('http://localhost:8080/pecas/'); // Corrigido caminho do arquivo JSON
         const result = await response.json();
         setData(result);
       } catch (error) {
