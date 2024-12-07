@@ -12,10 +12,8 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('mock.json'); // Certifique-se de que o arquivo mock.json esteja na raiz ou caminho correto
-        console.log(response)
+        const response = await fetch('/mock.json'); // Corrigido caminho do arquivo JSON
         const result = await response.json();
-        console.log(result)
         setData(result);
       } catch (error) {
         console.error('Erro ao carregar os dados:', error);
@@ -25,17 +23,26 @@ function App() {
     fetchData();
   }, []); // O array vazio faz o efeito rodar apenas uma vez após a montagem do componente
 
-  // Filtrando os dados conforme a pesquisa
-  const filteredData = data.filter((item) =>
-    item.codigoCofap.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.codigoOriginal.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.codigoAxios.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.codigoSampel.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.codigoMobensani.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.codigoBorflex.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.codigoYibrasil.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.nome.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Função para realizar o filtro dos dados
+  const filterData = (data: Array<any>, query: string) => {
+    const lowercasedQuery = query.toLowerCase();
+  
+    return data.map((item) => {
+      // Cria um array com as informações de cada campo que deu match
+      const matches = Object.keys(item).reduce((acc, key) => {
+        const fieldValue = item[key];
+        if (typeof fieldValue === 'string' && fieldValue.toLowerCase().includes(lowercasedQuery)) {
+          acc.push({ key, value: fieldValue });
+        }
+        return acc;
+      }, []);
+  
+      // Retorna o objeto original junto com os matches encontrados
+      return matches.length ? { ...item, matches } : null;
+    }).filter(Boolean); // Remove os itens que não tiveram matches
+  };
+
+  const filteredData = filterData(data, searchQuery); // Chamando a função de filtro
 
   const renderTabContent = () => {
     switch (tab) {
@@ -50,9 +57,9 @@ function App() {
 
   return (
     <>
-      <Header setTab={setTab} setSearchQuery={setSearchQuery} /> {/* Passando a função setSearchQuery para o Header */}
+      <Header setTab={setTab} setSearchQuery={setSearchQuery} />
       <h1>Aba Selecionada: {tab}</h1>
-      {renderTabContent()} {/* Renderizando o conteúdo da aba */}
+      {renderTabContent()}
     </>
   );
 }

@@ -5,6 +5,7 @@ const carMockData = [
   { brand: 'Toyota', models: [{ model: 'Corolla', years: [2020, 2021] }, { model: 'Camry', years: [2020, 2021] }] },
   { brand: 'Honda', models: [{ model: 'Civic', years: [2019, 2020, 2021] }, { model: 'Accord', years: [2020, 2021] }] },
   { brand: 'Ford', models: [{ model: 'Mustang', years: [2019, 2020] }, { model: 'F-150', years: [2021] }] },
+  {brand: 'Fiat',models:[{model:'Elba',years:[1985,2024]}]}
 ];
 
 interface Car {
