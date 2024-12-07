@@ -15,6 +15,7 @@ interface CardGridProps {
     codigoBorflex: string;
     codigoYibrasil: string;
     embalagem: number;
+    descricao:string;
   }>;
 }
 
