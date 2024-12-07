@@ -28,13 +28,14 @@ function App() {
   
     return data.map((item) => {
       // Cria um array com as informações de cada campo que deu match
-      const matches = Object.keys(item).reduce((acc, key) => {
+      const matches = Object.keys(item).reduce<{ key: string; value: string }[]>((acc, key) => {
         const fieldValue = item[key];
         if (typeof fieldValue === 'string' && fieldValue.toLowerCase().includes(lowercasedQuery)) {
           acc.push({ key, value: fieldValue });
         }
         return acc;
       }, []);
+      
   
       // Retorna o objeto original junto com os matches encontrados
       return matches.length ? { ...item, matches } : null;
